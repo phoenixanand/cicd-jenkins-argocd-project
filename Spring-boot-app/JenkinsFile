@@ -24,8 +24,8 @@ pipeline {
         SONAR_URL = "http://13.201.25.231:9000"
       }
       steps {
-        withCredentials([string(credentialsId: 'sonarqube', variable: 'SONAR_AUTH_TOKEN')]) {
-          sh 'cd cicd-jenkins-argocd-project/Spring-boot-app && mvn sonar:sonar -Dsonar.login=$SONAR_AUTH_TOKEN -Dsonar.host.url=${SONAR_URL}'
+        withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
+          sh 'cd Spring-boot-app && mvn clean verify sonar:sonar -Dsonar.host.url=http://sonarqube:9000 -Dsonar.login=$SONAR_AUTH_TOKEN'
         }
       }
     }
