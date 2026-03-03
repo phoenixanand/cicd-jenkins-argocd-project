@@ -46,6 +46,7 @@ pipeline {
       }
     }
     stage('Update Deployment File') {
+        agent any
         environment {
             GIT_REPO_NAME = "cicd-jenkins-argocd-project"
             GIT_USER_NAME = "phoenixanand"
