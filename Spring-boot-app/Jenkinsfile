@@ -77,7 +77,7 @@ pipeline {
                     git add spring-boot-manifest/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
 
-                    git push https://${GITHUB_TOKEN}@github.com/phoenixanand/cicd-jenkins-argocd-project HEAD:main
+                    git push https://x-access-token:${GITHUB_TOKEN}@github.com/phoenixanand/cicd-jenkins-argocd-project HEAD:main
                     '''
                 }
             }
