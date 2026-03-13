@@ -1,4 +1,4 @@
-🚀 End-to-End CI/CD Pipeline with Jenkins, Docker, Kubernetes, ArgoCD & AWS (GitOps)
+<h1>End-to-End CI/CD Pipeline with Jenkins, Docker, Kubernetes, ArgoCD & AWS (GitOps)</h1>
 
 A complete production-style CI/CD implementation that automates everything from code commit to Kubernetes deployment using GitOps principles.
 
