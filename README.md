@@ -126,14 +126,6 @@ kubectl port-forward svc/argocd-server -n argocd 8000:443
 Access:
 https://localhost:8000
 
-9️) GitOps Deployment
-
-Create separate Git repository for:
-
-deployment.yaml
-service.yaml
-Configure ArgoCD Application
-Enable Auto Sync
 
 <img width="1881" height="972" alt="image" src="https://github.com/user-attachments/assets/17c86cfd-7783-4434-9286-af0092e30966" />
 
