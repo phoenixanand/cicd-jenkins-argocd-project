@@ -9,16 +9,16 @@ pipeline {
             }
         }
 
-        stage('Build and Test') {
-            agent {
+        stage('Build and Test') {  //build and test stage
+            agent {       // run in docker container in maven 
                 docker {
                     image 'alphaman02/maven-docker-agent:v1'
-                    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'
+                    args '--user root -v /var/run/docker.sock:/var/run/docker.sock'  // --user root = run container as root, -v /var/run/docker.sock =allow container to use host Docker
                 }
             }
-            steps {
+            steps {  //generating jar file
                 sh '''
-                cd Spring-boot-app
+                cd Spring-boot-app  
                 mvn clean package
                 '''
             }
@@ -32,17 +32,17 @@ pipeline {
                 }
             }
             environment {
-                SONAR_URL = "http://13.201.15.100:9000"
+                SONAR_URL = "http://13.201.15.100:9000"   //sonarqube url
             }
             steps {
-                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) {
+                withCredentials([string(credentialsId: 'sonar-token', variable: 'SONAR_AUTH_TOKEN')]) { //securly fetching tokens from jenkins
                     sh '''
-                    cd Spring-boot-app
+                    cd Spring-boot-app            
                     mvn clean verify sonar:sonar \
                       -Dsonar.login=$SONAR_AUTH_TOKEN \
                       -Dsonar.host.url=$SONAR_URL
                     '''
-                }
+                }   //sonar:sonar - which sends the report to sonar 
             }
         }
 
@@ -67,13 +67,13 @@ pipeline {
 
         stage('Update Deployment File') {
             steps {
-                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {
+                withCredentials([string(credentialsId: 'github', variable: 'GITHUB_TOKEN')]) {   
                     sh '''
-                    git config user.email "phoenixanand02@gmail.com"
+                    git config user.email "phoenixanand02@gmail.com"           
                     git config user.name "Anand"
 
                     sed -i "s/replaceImageTag/${BUILD_NUMBER}/g" spring-boot-manifest/deployment.yml
-
+                    
                     git add spring-boot-manifest/deployment.yml
                     git commit -m "Update deployment image to version ${BUILD_NUMBER}" || echo "No changes to commit"
 
